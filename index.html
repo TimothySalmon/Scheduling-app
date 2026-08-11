@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CatFace Production Scheduler</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">&#127916;</span>
+      <div>
+        <h1>Production Scheduler</h1>
+        <p class="sub">15-minute blocks &middot; drag a task to move it &middot; drag its right edge to resize &middot; everything after follows</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-add-video" class="primary">+ Add video</button>
+      <button id="btn-export-csv">Export CSV</button>
+      <button id="btn-save-json">Save JSON</button>
+      <button id="btn-load-json">Load JSON</button>
+      <button id="btn-print">Print</button>
+      <input type="file" id="file-json" accept="application/json,.json" hidden />
+    </div>
+  </header>
+
+  <section class="daybar">
+    <label>Week / day <input id="day-label" type="text" placeholder="Monday 8/10" /></label>
+    <label>Day starts <input id="day-start" type="time" step="900" /></label>
+    <label>Day ends <input id="day-end" type="time" step="900" /></label>
+    <span class="hint" id="day-hint"></span>
+    <span class="spacer"></span>
+    <button id="btn-reset" class="danger-ghost">Clear schedule</button>
+  </section>
+
+  <main>
+    <section class="timeline-wrap" id="timeline-wrap">
+      <div class="timeline">
+        <div class="ruler" id="ruler"></div>
+        <div class="rows" id="rows"></div>
+      </div>
+      <p class="empty" id="empty-msg" hidden>No videos yet &mdash; click &ldquo;+ Add video&rdquo; to start building the day.</p>
+    </section>
+
+    <aside class="inspector" id="inspector"></aside>
+  </main>
+
+  <dialog id="video-dialog">
+    <form method="dialog" id="video-form">
+      <div class="dlg-body">
+        <h2>Add a video</h2>
+        <div class="field">
+          <label for="v-title">Video / episode title</label>
+          <input id="v-title" required placeholder="Everyone BROKE Aphmau&rsquo;s HEART!" />
+        </div>
+        <div class="field two">
+          <div>
+            <label for="v-team">Team</label>
+            <input id="v-team" placeholder="Team A" />
+          </div>
+          <div>
+            <label for="v-owner">Showrunner / owner</label>
+            <input id="v-owner" placeholder="Eric" />
+          </div>
+        </div>
+        <div class="field two">
+          <div>
+            <label for="v-start">Call time</label>
+            <input id="v-start" type="time" step="900" value="09:00" />
+          </div>
+          <div>
+            <label for="v-template">Starting steps</label>
+            <select id="v-template">
+              <option value="standard">Standard shoot day</option>
+              <option value="record">Record + review only</option>
+              <option value="empty">Empty (add my own)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="v-link">Video link (optional)</label>
+          <input id="v-link" type="url" placeholder="https://..." />
+        </div>
+      </div>
+      <div class="dlg-actions">
+        <button value="cancel" type="submit" formnovalidate>Cancel</button>
+        <button value="ok" id="v-save" class="primary">Add video</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
